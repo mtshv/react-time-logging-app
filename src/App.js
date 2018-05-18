@@ -25,6 +25,26 @@ class App extends Component {
         ],
     };
 
+    componentDidMount() {
+        const getLsTimers = localStorage.getItem('timers');
+        if (getLsTimers) {
+            if ( Object.keys(getLsTimers).length ) {
+                this.setState({ timers : JSON.parse(getLsTimers) });
+            } else {
+                localStorage.clear()
+            }
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.timers.length) {
+            localStorage.setItem('timers', JSON.stringify(this.state.timers));
+        } else {
+            localStorage.clear()
+        }
+    }
+
+
     handleCreateFormSubmit = (timer) => {
         this.createTimer(timer);
     };
@@ -109,18 +129,21 @@ class App extends Component {
 
     render() {
         return (
-            <div className='ui three column centered grid'>
-                <div className='column'>
-                    <EditableTimerList
-                        timers={this.state.timers}
-                        onFormSubmit={this.handleEditFormSubmit}
-                        onTrashClick={this.handleTrashClick}
-                        onStartClick={this.handleStartClick}
-                        onStopClick={this.handleStopClick}
-                    />
-                    <AddNewTimer
-                        onFormSubmit={this.handleCreateFormSubmit}
-                    />
+            <div className="main ui text container">
+                <h1 className="ui dividing centered header">Timers</h1>
+                <div className='ui two column centered grid'>
+                    <div className='column'>
+                        <EditableTimerList
+                            timers={this.state.timers}
+                            onFormSubmit={this.handleEditFormSubmit}
+                            onTrashClick={this.handleTrashClick}
+                            onStartClick={this.handleStartClick}
+                            onStopClick={this.handleStopClick}
+                        />
+                        <AddNewTimer
+                            onFormSubmit={this.handleCreateFormSubmit}
+                        />
+                    </div>
                 </div>
             </div>
         );
