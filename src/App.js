@@ -3,6 +3,7 @@ import './App.css';
 import AddNewTimer from "./Components/AddNewTimer";
 import EditableTimerList from "./Components/EditableTimerList";
 import uuid from 'uuid4';
+import {newTimer} from "./utils";
 
 class App extends Component {
     state = {
@@ -24,13 +25,24 @@ class App extends Component {
         ],
     };
 
+    handleCreateFormSubmit = (timer) => {
+        this.createTimer(timer);
+    };
+
+    createTimer = (timer) => {
+        const t = newTimer(timer);
+        this.setState({
+            timers: this.state.timers.concat(t),
+        });
+    };
+
     render() {
         return (
             <div className='ui three column centered grid'>
                 <div className='column'>
                     <EditableTimerList timers={this.state.timers} />
                     <AddNewTimer
-                        isOpen={true}
+                        onFormSubmit={this.handleCreateFormSubmit}
                     />
                 </div>
             </div>

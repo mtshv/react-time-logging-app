@@ -1,3 +1,16 @@
+import uuid from 'uuid4';
+
+export function newTimer(attrs = {}) {
+    const timer = {
+        title: attrs.title || 'Timer',
+        project: attrs.project || 'Project',
+        id: uuid,
+        elapsed: 0,
+    };
+
+    return timer;
+}
+
 export function renderElapsedString(elapsed, runningSince) {
     let totalElapsed = elapsed;
     if (runningSince) {
