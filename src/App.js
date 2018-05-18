@@ -28,7 +28,7 @@ class App extends Component {
         return (
             <div className='ui three column centered grid'>
                 <div className='column'>
-                    <EditableTimerList />
+                    <EditableTimerList timers={this.state.timers} />
                     <AddNewTimer
                         isOpen={true}
                     />
