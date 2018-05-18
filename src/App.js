@@ -33,6 +33,10 @@ class App extends Component {
         this.updateTimer(attrs);
     };
 
+    handleTrashClick = (timerId) => {
+        this.deleteTimer(timerId);
+    };
+
     createTimer = (timer) => {
         const t = newTimer(timer);
         this.setState({
@@ -55,6 +59,12 @@ class App extends Component {
         });
     };
 
+    deleteTimer = (timerId) => {
+        this.setState({
+            timers: this.state.timers.filter(t => t.id !== timerId),
+        });
+    };
+
     render() {
         return (
             <div className='ui three column centered grid'>
@@ -62,6 +72,7 @@ class App extends Component {
                     <EditableTimerList
                         timers={this.state.timers}
                         onFormSubmit={this.handleEditFormSubmit}
+                        onTrashClick={this.handleTrashClick}
                     />
                     <AddNewTimer
                         onFormSubmit={this.handleCreateFormSubmit}
