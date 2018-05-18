@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import {renderElapsedString} from "../utils";
 
 class Timer extends Component {
+    componentDidMount() {
+        this.forceUpdateInterval = setInterval(() => this.forceUpdate(), 50);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.forceUpdateInterval);
+    }
+
     handleTrashClick = () => {
         this.props.onTrashClick(this.props.id);
     };
     render() {
-        const elapsedString = renderElapsedString(this.props.elapsed);
+        const elapsedString = renderElapsedString( this.props.elapsed, this.props.runningSince );
         return (
             <div className='ui centered card'>
                 <div className='content'>

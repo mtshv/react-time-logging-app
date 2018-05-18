@@ -4,7 +4,7 @@ export function newTimer(attrs = {}) {
     const timer = {
         title: attrs.title || 'Timer',
         project: attrs.project || 'Project',
-        id: uuid,
+        id: uuid(),
         elapsed: 0,
     };
 
